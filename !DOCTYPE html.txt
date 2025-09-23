@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SportspediA - Your Ultimate Football Destination</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a1428 0%, #1e3a5f 50%, #2d5a87 100%);
+            color: #ffffff;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 3px solid #00d4ff;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #00d4ff, #0099cc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-item a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-item a:hover {
+            background: rgba(0, 212, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="%23ffffff" opacity="0.1"><animate attributeName="opacity" values="0.1;0.3;0.1" dur="2s" repeatCount="indefinite"/></circle></svg>') repeat;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-100px); }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ffffff, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #00d4ff, #0099cc);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.5);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            margin: 4rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            background: linear-gradient(45deg, #ffffff, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .news-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .news-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #00d4ff, #0099cc);
+        }
+
+        .news-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .news-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #00d4ff;
+        }
+
+        .news-content {
+            opacity: 0.9;
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .league-badge {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .premier-league { background: linear-gradient(45deg, #3b0764, #7c3aed); }
+        .serie-a { background: linear-gradient(45deg, #0ea5e9, #0284c7); }
+        .la-liga { background: linear-gradient(45deg, #f59e0b, #d97706); }
+
+        .live-scores {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .live-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            color: #00d4ff;
+        }
+
+        .match {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            margin: 1rem 0;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .match:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: scale(1.02);
+        }
+
+        .team {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .score {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #00d4ff;
+        }
+
+        .live-indicator {
+            background: #ff4757;
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #00d4ff;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 3rem 0;
+            margin-top: 4rem;
+            border-top: 3px solid #00d4ff;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #00d4ff, #0099cc);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 20px rgba(0, 212, 255, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .match {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        .breaking-news {
+            background: linear-gradient(45deg, #ff4757, #ff3838);
+            padding: 1rem;
+            margin: 2rem 0;
+            border-radius: 15px;
+            text-align: center;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 0 20px rgba(255, 71, 87, 0.5); }
+            to { box-shadow: 0 0 30px rgba(255, 71, 87, 0.8); }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">SportspediA</div>
+            <nav>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="#home">Home</a></li>
+                    <li class="nav-item"><a href="#news">News</a></li>
+                    <li class="nav-item"><a href="#scores">Live Scores</a></li>
+                    <li class="nav-item"><a href="#leagues">Leagues</a></li>
+                    <li class="nav-item"><a href="#stats">Stats</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="container">
+                <h1>Welcome to SportspediA</h1>
+                <p>Your ultimate destination for football news, live scores, and comprehensive coverage</p>
+                <a href="#news" class="cta-button">Explore Latest News</a>
+            </div>
+        </section>
+
+        <div class="container">
+            <div class="breaking-news">
+                <strong>🔴 BREAKING:</strong> Transfer window updates and live match coverage available now!
+            </div>
+
+            <section class="section" id="scores">
+                <h2 class="section-title">Live Scores</h2>
+                <div class="live-scores">
+                    <h3 class="live-title">Latest Results & Live Matches</h3>
+                    
+                    <div class="match">
+                        <div class="team">
+                            <strong>Arsenal</strong>
+                            <span class="league-badge premier-league">PL</span>
+                        </div>
+                        <div class="score">5 - 0</div>
+                        <div class="team">
+                            <strong>Nottingham Forest</strong>
+                        </div>
+                        <div class="live-indicator">FT</div>
+                    </div>
+
+                    <div class="match">
+                        <div class="team">
+                            <strong>Man United</strong>
+                            <span class="league-badge premier-league">PL</span>
+                        </div>
+                        <div class="score">1 - 0</div>
+                        <div class="team">
+                            <strong>West Ham</strong>
+                        </div>
+                        <div class="live-indicator">FT</div>
+                    </div>
+
+                    <div class="match">
+                        <div class="team">
+                            <strong>Real Madrid</strong>
+                            <span class="league-badge la-liga">LL</span>
+                        </div>
+                        <div class="score">1 - 1</div>
+                        <div class="team">
+                            <strong>Girona</strong>
+                        </div>
+                        <div class="live-indicator">FT</div>
+                    </div>
+
+                    <div class="match">
+                        <div class="team">
+                            <strong>Torino</strong>
+                            <span class="league-badge serie-a">SA</span>
+                        </div>
+                        <div class="score">2 - 1</div>
+                        <div class="team">
+                            <strong>AC Milan</strong>
+                        </div>
+                        <div class="live-indicator">FT</div>
+                    </div>
+
+                    <div class="match">
+                        <div class="team">
+                            <strong>Barcelona</strong>
+                            <span class="league-badge la-liga">LL</span>
+                        </div>
+                        <div class="score">2 - 1</div>
+                        <div class="team">
+                            <strong>Valencia</strong>
+                        </div>
+                        <div class="live-indicator">LIVE</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="news">
+                <h2 class="section-title">Latest Football News</h2>
+                
+                <div class="news-grid">
+                    <article class="news-card">
+                        <h3 class="news-title">Arsenal Go Top with Dominant 5-0 Victory</h3>
+                        <p class="news-content">
+                            The Gunners delivered a masterclass performance against Nottingham Forest, with Martinelli and Partey among the scorers. This comprehensive victory moves Arsenal to the top of the Premier League table, showcasing their title credentials with sublime attacking football.
+                        </p>
+                        <div class="news-meta">
+                            <span class="league-badge premier-league">Premier League</span>
+                            <span>2 hours ago</span>
+                        </div>
+                    </article>
+
+                    <article class="news-card">
+                        <h3 class="news-title">Rashford's Winner Lifts United to 5th Place</h3>
+                        <p class="news-content">
+                            Marcus Rashford's crucial goal secured all three points for Manchester United against West Ham, moving the Red Devils up to fifth place in the Premier League standings. The England forward continues his impressive form this season.
+                        </p>
+                        <div class="news-meta">
+                            <span class="league-badge premier-league">Premier League</span>
+                            <span>3 hours ago</span>
+                        </div>
+                    </article>
+
+                    <article class="news-card">
+                        <h3 class="news-title">Madrid's Winless Run Continues Against Girona</h3>
+                        <p class="news-content">
+                            Real Madrid's struggles continued with a 1-1 draw against Girona, extending their winless run to two games. Toni Kroos received a red card in the match, adding to Los Blancos' woes in what has been a challenging period for the Spanish giants.
+                        </p>
+                        <div class="news-meta">
+                            <span class="league-badge la-liga">La Liga</span>
+                            <span>4 hours ago</span>
+                        </div>
+                    </article>
+
+                    <article class="news-card">
+                        <h3 class="news-title">Torino Stun Milan with Quick-Fire Double</h3>
+                        <p class="news-content">
+                            In a shocking turn of events, mid-table Torino defeated AC Milan 2-1, scoring two goals in just two minutes during the second half. This upset victory highlights Serie A's competitive nature and Milan's inconsistent form this season.
+                        </p>
+                        <div class="news-meta">
+                            <span class="league-badge serie-a">Serie A</span>
+                            <span>5 hours ago</span>
+                        </div>
+                    </article>
+
+                    <article class="news-card">
+                        <h3 class="news-title">Roma Secure Victory Against 10-Man Verona</h3>
+                        <p class="news-content">
+                            AS Roma fought hard to secure a 3-1 victory against Verona, who played the majority of the match with ten men. The Giallorossi showed resilience and tactical discipline to claim all three points in this Serie A encounter.
+                        </p>
+                        <div class="news-meta">
+                            <span class="league-badge serie-a">Serie A</span>
+                            <span>6 hours ago</span>
+                        </div>
+                    </article>
+
+                    <article class="news-card">
+                        <h3 class="news-title">Transfer Roundup: January Window Heating Up</h3>
+                        <p class="news-content">
+                            The January transfer window is gaining momentum with several high-profile moves rumored across Europe's top leagues. Premier League clubs are particularly active as they look to strengthen their squads for the second half of the season.
+                        </p>
+                        <div class="news-meta">
+                            <span class="league-badge">Transfer News</span>
+                            <span>1 day ago</span>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <section class="section" id="stats">
+                <h2 class="section-title">Season Statistics</h2>
+                <div class="stats-section">
+                    <div class="stat-card">
+                        <div class="stat-number">156</div>
+                        <div>Matches Played</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">428</div>
+                        <div>Goals Scored</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">89</div>
+                        <div>Red Cards</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">2.74</div>
+                        <div>Avg Goals/Match</div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <h3>Follow SportspediA</h3>
+            <div class="social-links">
+                <a href="#" class="social-link">📘</a>
+                <a href="#" class="social-link">🐦</a>
+                <a href="#" class="social-link">📷</a>
+                <a href="#" class="social-link">📺</a>
+            </div>
+            <p>&copy; 2025 SportspediA. Your Ultimate Football Destination.</p>
+            <p>Stay connected for live scores, breaking news, and comprehensive coverage.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Auto-refresh live scores simulation
+        function updateLiveScores() {
+            const liveMatches = document.querySelectorAll('.live-indicator');
+            liveMatches.forEach(indicator => {
+                if (indicator.textContent === 'LIVE') {
+                    // Simulate score updates
+                    const match = indicator.closest('.match');
+                    const score = match.querySelector('.score');
+                    if (Math.random() > 0.95) { // 5% chance of score update
+                        const [home, away] = score.textContent.split(' - ').map(s => parseInt(s.trim()));
+                        if (Math.random() > 0.5) {
+                            score.textContent = `${home + 1} - ${away}`;
+                        } else {
+                            score.textContent = `${home} - ${away + 1}`;
+                        }
+                        
+                        // Flash effect for score change
+                        score.style.animation = 'pulse 0.5s ease-in-out';
+                        setTimeout(() => {
+                            score.style.animation = '';
+                        }, 500);
+                    }
+                }
+            });
+        }
+
+        // Update live scores every 30 seconds
+        setInterval(updateLiveScores, 30000);
+
+        // Add dynamic content loading simulation
+        function addBreakingNews() {
+            const breakingNews = document.querySelector('.breaking-news');
+            const newsItems = [
+                '🔴 BREAKING: Major transfer confirmed!',
+                '⚡ LIVE: Championship playoff final underway!',
+                '🏆 UPDATE: Europa League draw completed!',
+                '📺 WATCH: Press conference starting now!',
+                '🔴 BREAKING: Transfer window updates and live match coverage available now!'
+            ];
+            
+            let currentIndex = 0;
+            setInterval(() => {
+                currentIndex = (currentIndex + 1) % newsItems.length;
+                breakingNews.innerHTML = `<strong>${newsItems[currentIndex].split(':')[0]}:</strong> ${newsItems[currentIndex].split(':').slice(1).join(':')}`;
+            }, 10000);
+        }
+
+        // Initialize dynamic features
+        addBreakingNews();
+
+        // Add parallax effect to hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            const rate = scrolled * -0.5;
+            hero.style.transform = `translate3d(0, ${rate}px, 0)`;
+        });
+    </script>
+</body>
+</html>
