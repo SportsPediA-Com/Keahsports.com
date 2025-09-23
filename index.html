@@ -145,6 +145,29 @@
             background: linear-gradient(45deg, #ffffff, #00d4ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .refresh-btn {
+            padding: 10px 20px;
+            background: linear-gradient(45deg, #00d4ff, #0099cc);
+            border: none;
+            border-radius: 25px;
+            color: white;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .refresh-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
         }
 
         .news-grid {
@@ -186,6 +209,7 @@
             font-weight: bold;
             margin-bottom: 1rem;
             color: #00d4ff;
+            line-height: 1.4;
         }
 
         .news-content {
@@ -200,6 +224,19 @@
             align-items: center;
             font-size: 0.9rem;
             opacity: 0.7;
+            margin-bottom: 1rem;
+        }
+
+        .news-link {
+            color: #00d4ff;
+            text-decoration: none;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .news-link:hover {
+            opacity: 1;
         }
 
         .league-badge {
@@ -208,6 +245,7 @@
             border-radius: 15px;
             font-size: 0.8rem;
             font-weight: bold;
+            white-space: nowrap;
         }
 
         .premier-league { background: linear-gradient(45deg, #3b0764, #7c3aed); }
@@ -354,6 +392,11 @@
                 flex-direction: column;
                 gap: 1rem;
             }
+
+            .section-title {
+                flex-direction: column;
+                gap: 1rem;
+            }
         }
 
         .breaking-news {
@@ -368,6 +411,11 @@
         @keyframes glow {
             from { box-shadow: 0 0 20px rgba(255, 71, 87, 0.5); }
             to { box-shadow: 0 0 30px rgba(255, 71, 87, 0.8); }
+        }
+
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
         }
     </style>
 </head>
@@ -469,74 +517,15 @@
             </section>
 
             <section class="section" id="news">
-                <h2 class="section-title">Latest Football News</h2>
+                <h2 class="section-title">
+                    Latest Football News
+                    <button class="refresh-btn" onclick="refreshNews()">
+                        🔄 Refresh News
+                    </button>
+                </h2>
                 
-                <div class="news-grid">
-                    <article class="news-card">
-                        <h3 class="news-title">Arsenal Go Top with Dominant 5-0 Victory</h3>
-                        <p class="news-content">
-                            The Gunners delivered a masterclass performance against Nottingham Forest, with Martinelli and Partey among the scorers. This comprehensive victory moves Arsenal to the top of the Premier League table, showcasing their title credentials with sublime attacking football.
-                        </p>
-                        <div class="news-meta">
-                            <span class="league-badge premier-league">Premier League</span>
-                            <span>2 hours ago</span>
-                        </div>
-                    </article>
-
-                    <article class="news-card">
-                        <h3 class="news-title">Rashford's Winner Lifts United to 5th Place</h3>
-                        <p class="news-content">
-                            Marcus Rashford's crucial goal secured all three points for Manchester United against West Ham, moving the Red Devils up to fifth place in the Premier League standings. The England forward continues his impressive form this season.
-                        </p>
-                        <div class="news-meta">
-                            <span class="league-badge premier-league">Premier League</span>
-                            <span>3 hours ago</span>
-                        </div>
-                    </article>
-
-                    <article class="news-card">
-                        <h3 class="news-title">Madrid's Winless Run Continues Against Girona</h3>
-                        <p class="news-content">
-                            Real Madrid's struggles continued with a 1-1 draw against Girona, extending their winless run to two games. Toni Kroos received a red card in the match, adding to Los Blancos' woes in what has been a challenging period for the Spanish giants.
-                        </p>
-                        <div class="news-meta">
-                            <span class="league-badge la-liga">La Liga</span>
-                            <span>4 hours ago</span>
-                        </div>
-                    </article>
-
-                    <article class="news-card">
-                        <h3 class="news-title">Torino Stun Milan with Quick-Fire Double</h3>
-                        <p class="news-content">
-                            In a shocking turn of events, mid-table Torino defeated AC Milan 2-1, scoring two goals in just two minutes during the second half. This upset victory highlights Serie A's competitive nature and Milan's inconsistent form this season.
-                        </p>
-                        <div class="news-meta">
-                            <span class="league-badge serie-a">Serie A</span>
-                            <span>5 hours ago</span>
-                        </div>
-                    </article>
-
-                    <article class="news-card">
-                        <h3 class="news-title">Roma Secure Victory Against 10-Man Verona</h3>
-                        <p class="news-content">
-                            AS Roma fought hard to secure a 3-1 victory against Verona, who played the majority of the match with ten men. The Giallorossi showed resilience and tactical discipline to claim all three points in this Serie A encounter.
-                        </p>
-                        <div class="news-meta">
-                            <span class="league-badge serie-a">Serie A</span>
-                            <span>6 hours ago</span>
-                        </div>
-                    </article>
-
-                    <article class="news-card">
-                        <h3 class="news-title">Transfer Roundup: January Window Heating Up</h3>
-                        <p class="news-content">
-                            The January transfer window is gaining momentum with several high-profile moves rumored across Europe's top leagues. Premier League clubs are particularly active as they look to strengthen their squads for the second half of the season.
-                        </p>
-                        <div class="news-meta">
-                            <span class="league-badge">Transfer News</span>
-                            <span>1 day ago</span>
-                        </div>
-                    </article>
+                <div class="news-grid" id="newsGrid">
+                    <!-- News articles will be loaded here -->
                 </div>
             </section>
 
@@ -570,8 +559,8 @@
             <div class="social-links">
                 <a href="#" class="social-link">📘</a>
                 <a href="#" class="social-link">🐦</a>
-                <a href="#" class="social-link">📷</a>
                 <a href="#" class="social-link">📺</a>
+                <a href="#" class="social-link">📷</a>
             </div>
             <p>&copy; 2025 SportspediA. Your Ultimate Football Destination.</p>
             <p>Stay connected for live scores, breaking news, and comprehensive coverage.</p>
@@ -580,7 +569,7 @@
 
     <script>
         // Configuration
-        const NEWS_API_KEY = 'YOUR_API_KEY_HERE'; // You'll need to get this from newsapi.org
+        const NEWS_API_KEY = 'YOUR_API_KEY_HERE'; // Replace with your NewsAPI key
         const DEMO_MODE = true; // Set to false when you have an API key
 
         // Smooth scrolling for navigation links
@@ -596,52 +585,52 @@
         // Real news fetching function
         async function fetchRealNews() {
             if (DEMO_MODE) {
-                // Demo news data (remove when using real API)
+                // Demo news data with more realistic content
                 return {
                     articles: [
                         {
-                            title: "Premier League: Manchester City extend lead at top with victory over Chelsea",
-                            description: "Manchester City moved five points clear at the top of the Premier League with a commanding 3-1 victory over Chelsea at the Etihad Stadium.",
+                            title: "Manchester City Secure Crucial Victory Against Liverpool in Title Race",
+                            description: "Manchester City moved three points clear at the top of the Premier League with a commanding 2-1 victory over Liverpool at the Etihad Stadium, with goals from Haaland and De Bruyne.",
                             urlToImage: null,
                             publishedAt: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
                             source: { name: "BBC Sport" },
                             url: "#"
                         },
                         {
-                            title: "Transfer News: Liverpool target midfielder in January window",
-                            description: "Liverpool are reportedly preparing a bid for the highly-rated midfielder as they look to strengthen their squad for the second half of the season.",
+                            title: "Transfer Alert: PSG Prepare Record Bid for England Star",
+                            description: "Paris Saint-Germain are reportedly preparing a record-breaking €120 million offer for the highly-rated England midfielder as they look to rebuild their squad.",
                             urlToImage: null,
                             publishedAt: new Date(Date.now() - 4 * 60 * 60 * 1000).toISOString(),
                             source: { name: "Sky Sports" },
                             url: "#"
                         },
                         {
-                            title: "Champions League: Real Madrid prepare for crucial quarter-final clash",
-                            description: "Real Madrid are gearing up for their Champions League quarter-final second leg, with manager Carlo Ancelotti confident of progression.",
+                            title: "Champions League Semifinal: Real Madrid Edge Past Bayern Munich",
+                            description: "Real Madrid advanced to the Champions League final after a thrilling 3-2 aggregate victory over Bayern Munich, with Benzema scoring the crucial away goal.",
                             urlToImage: null,
                             publishedAt: new Date(Date.now() - 6 * 60 * 60 * 1000).toISOString(),
                             source: { name: "ESPN" },
                             url: "#"
                         },
                         {
-                            title: "Serie A Update: Inter Milan close gap on league leaders",
-                            description: "Inter Milan's recent form has seen them close the gap on the Serie A leaders, setting up an exciting title race for the remainder of the season.",
+                            title: "Serie A Update: Napoli Extend Lead with Derby Victory",
+                            description: "Napoli strengthened their position at the top of Serie A with a convincing 3-0 victory in the Naples derby, moving six points clear of their nearest rivals.",
                             urlToImage: null,
                             publishedAt: new Date(Date.now() - 8 * 60 * 60 * 1000).toISOString(),
                             source: { name: "Gazzetta dello Sport" },
                             url: "#"
                         },
                         {
-                            title: "World Cup Qualifiers: England secure comfortable victory",
-                            description: "England continued their perfect start to World Cup qualifying with a comprehensive win, maintaining their position at the top of their group.",
+                            title: "World Cup Qualifiers: Brazil Maintain Perfect Record",
+                            description: "Brazil continued their flawless World Cup qualifying campaign with a 2-0 victory over Argentina in the South American qualifier, maintaining their 100% record.",
                             urlToImage: null,
                             publishedAt: new Date(Date.now() - 12 * 60 * 60 * 1000).toISOString(),
                             source: { name: "The Guardian" },
                             url: "#"
                         },
                         {
-                            title: "La Liga: Barcelona's young stars shine in latest victory",
-                            description: "Barcelona's emerging talents were on full display as they secured another important victory in their pursuit of La Liga glory.",
+                            title: "La Liga Drama: Barcelona Stage Incredible Comeback",
+                            description: "Barcelona produced a stunning second-half comeback to defeat Atletico Madrid 4-2, with teenage sensation Gavi scoring twice in the final 15 minutes.",
                             urlToImage: null,
                             publishedAt: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
                             source: { name: "Marca" },
@@ -653,7 +642,7 @@
 
             try {
                 // Real NewsAPI call (when you have an API key)
-                const response = await fetch(`https://newsapi.org/v2/everything?q=football OR soccer OR premier league OR champions league&language=en&sortBy=publishedAt&pageSize=20&apiKey=${NEWS_API_KEY}`);
+                const response = await fetch(`https://newsapi.org/v2/everything?q=football OR soccer OR "premier league" OR "champions league" OR "serie a" OR "la liga"&language=en&sortBy=publishedAt&pageSize=20&apiKey=${NEWS_API_KEY}`);
                 const data = await response.json();
                 return data;
             } catch (error) {
@@ -666,16 +655,18 @@
         function getLeagueBadge(title, description, source) {
             const text = (title + ' ' + description + ' ' + source.name).toLowerCase();
             
-            if (text.includes('premier league') || text.includes('epl')) {
+            if (text.includes('premier league') || text.includes('manchester') || text.includes('liverpool') || text.includes('arsenal') || text.includes('chelsea')) {
                 return { class: 'premier-league', text: 'Premier League' };
-            } else if (text.includes('champions league') || text.includes('ucl')) {
+            } else if (text.includes('champions league') || text.includes('ucl') || text.includes('uefa')) {
                 return { class: 'premier-league', text: 'Champions League' };
-            } else if (text.includes('serie a') || text.includes('italy')) {
+            } else if (text.includes('serie a') || text.includes('italy') || text.includes('juventus') || text.includes('milan') || text.includes('napoli')) {
                 return { class: 'serie-a', text: 'Serie A' };
-            } else if (text.includes('la liga') || text.includes('spain')) {
+            } else if (text.includes('la liga') || text.includes('spain') || text.includes('barcelona') || text.includes('real madrid') || text.includes('atletico')) {
                 return { class: 'la-liga', text: 'La Liga' };
-            } else if (text.includes('transfer')) {
+            } else if (text.includes('transfer') || text.includes('bid') || text.includes('sign')) {
                 return { class: '', text: 'Transfer News' };
+            } else if (text.includes('world cup') || text.includes('international')) {
+                return { class: '', text: 'International' };
             } else {
                 return { class: '', text: 'Football News' };
             }
@@ -700,18 +691,35 @@
 
         // Function to update news cards with real data
         function updateNewsCards(articles) {
-            const newsGrid = document.querySelector('.news-grid');
-            if (!newsGrid || !articles || articles.length === 0) return;
+            const newsGrid = document.getElementById('newsGrid');
+            if (!newsGrid || !articles || articles.length === 0) {
+                // Show fallback content if no articles
+                newsGrid.innerHTML = `
+                    <div class="news-card">
+                        <h3 class="news-title">Unable to load news</h3>
+                        <p class="news-content">Please check your internet connection and try refreshing the page.</p>
+                        <div class="news-meta">
+                            <span class="league-badge">Notice</span>
+                            <span>Just now</span>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
 
             // Filter out articles without proper content
             const validArticles = articles.filter(article => 
                 article.title && 
                 article.description && 
                 article.title.length > 10 &&
-                !article.title.toLowerCase().includes('[removed]')
+                !article.title.toLowerCase().includes('[removed]') &&
+                !article.description.toLowerCase().includes('[removed]')
             ).slice(0, 6); // Take only first 6 articles
 
-            if (validArticles.length === 0) return;
+            if (validArticles.length === 0) {
+                updateNewsCards([]); // Show fallback
+                return;
+            }
 
             newsGrid.innerHTML = validArticles.map(article => {
                 const league = getLeagueBadge(article.title, article.description, article.source);
@@ -727,7 +735,7 @@
                             <span class="league-badge ${league.class}">${league.text}</span>
                             <span>${timeAgo}</span>
                         </div>
-                        ${article.url !== '#' ? `<a href="${article.url}" target="_blank" style="color: #00d4ff; text-decoration: none; font-size: 0.9rem;">Read full article →</a>` : ''}
+                        ${article.url !== '#' ? `<a href="${article.url}" target="_blank" class="news-link">Read full article →</a>` : ''}
                     </article>
                 `;
             }).join('');
@@ -762,9 +770,9 @@
             const breakingNews = document.querySelector('.breaking-news');
             const newsItems = [
                 '🔴 BREAKING: Live news updates now available!',
-                '⚡ LIVE: Real-time sports coverage!',
+                '⚡ LIVE: Real-time sports coverage active!',
                 '🏆 UPDATE: Latest transfer news loading...',
-                '📺 WATCH: Fresh content every hour!',
+                '📺 WATCH: Fresh content every 30 minutes!',
                 '🔴 BREAKING: Stay tuned for live updates!'
             ];
             
@@ -775,12 +783,29 @@
             }, 10000);
         }
 
-        // Load fresh news every 30 minutes
+        // Load fresh news
         async function refreshNews() {
             console.log('Refreshing news...');
-            const newsData = await fetchRealNews();
-            if (newsData && newsData.articles) {
-                updateNewsCards(newsData.articles);
+            const refreshBtn = document.querySelector('.refresh-btn');
+            const newsGrid = document.getElementById('newsGrid');
+            
+            // Show loading state
+            refreshBtn.classList.add('loading');
+            refreshBtn.innerHTML = '⏳ Loading...';
+            newsGrid.classList.add('loading');
+            
+            try {
+                const newsData = await fetchRealNews();
+                if (newsData && newsData.articles) {
+                    updateNewsCards(newsData.articles);
+                }
+            } catch (error) {
+                console.error('Failed to refresh news:', error);
+            } finally {
+                // Remove loading state
+                refreshBtn.classList.remove('loading');
+                refreshBtn.innerHTML = '🔄 Refresh News';
+                newsGrid.classList.remove('loading');
             }
         }
 
@@ -801,42 +826,14 @@
         window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
             const hero = document.querySelector('.hero');
-            const rate = scrolled * -0.5;
-            hero.style.transform = `translate3d(0, ${rate}px, 0)`;
-        });
-
-        // Add manual refresh button functionality
-        function addRefreshButton() {
-            const newsSection = document.querySelector('#news .section-title');
-            if (newsSection) {
-                const refreshBtn = document.createElement('button');
-                refreshBtn.innerHTML = '🔄 Refresh News';
-                refreshBtn.style.cssText = `
-                    margin-left: 20px;
-                    padding: 10px 20px;
-                    background: linear-gradient(45deg, #00d4ff, #0099cc);
-                    border: none;
-                    border-radius: 25px;
-                    color: white;
-                    cursor: pointer;
-                    font-size: 0.9rem;
-                    transition: all 0.3s ease;
-                `;
-                refreshBtn.addEventListener('click', refreshNews);
-                refreshBtn.addEventListener('mouseover', () => {
-                    refreshBtn.style.transform = 'scale(1.05)';
-                });
-                refreshBtn.addEventListener('mouseout', () => {
-                    refreshBtn.style.transform = 'scale(1)';
-                });
-                newsSection.appendChild(refreshBtn);
+            if (hero) {
+                const rate = scrolled * -0.5;
+                hero.style.transform = `translate3d(0, ${rate}px, 0)`;
             }
-        }
-
-        // Add refresh button after page loads
-        document.addEventListener('DOMContentLoaded', () => {
-            setTimeout(addRefreshButton, 1000);
         });
+
+        // Make refresh news function globally available
+        window.refreshNews = refreshNews;
     </script>
 </body>
 </html>
